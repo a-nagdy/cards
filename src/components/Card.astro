@@ -1,61 +1,36 @@
 ---
 interface Props {
 	title: string;
-	body: string;
 	href: string;
+	className: string;
+	id: string;
+	img: string;
+	imgClass: string;
+	linkClass: string;
+	color: string;
 }
 
-const { href, title, body } = Astro.props;
+const { href, title, img, className, id, imgClass, linkClass, color } =
+	Astro.props;
+const titleWords = title.split(" ");
+console.log(id);
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
+<li class={className} id={id}>
+	<a
+		href={href}
+		class={`${linkClass} relative p-4 w-[152px] h-[170px] pb-0 `}
+	>
+		<h2
+			class={`text-lg font-bold w-[120px] h-[77px] self-center mt-5 ${id === "ProjectPlanning4" && "ml-3"} ${id === "QA&Inspection6" && "ml-[14px] z-[20]"}`}
+		>
+			<div class="tracking-wider">{titleWords[0]}</div>
+			<div>{titleWords[1]}</div>
 		</h2>
-		<p>
-			{body}
-		</p>
+		<div
+			class=`${color === "black" && "bg-black"} ${color === "orange" && "bg-orange-500"} ${color === "gray" && "bg-[#727272]"} w-[90%] h-[60%]  rounded-t-full  rotate-180 flex justify-center items-center mt-4`
+		>
+			<img src={img} class={`${imgClass} rotate-180`} />
+		</div>
 	</a>
 </li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 1px;
-		background-color: #23262d;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 7px;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-	}
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: calc(1.5rem - 1px);
-		border-radius: 8px;
-		color: white;
-		background-color: #23262d;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
-	}
-</style>
